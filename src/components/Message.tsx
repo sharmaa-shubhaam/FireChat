@@ -6,16 +6,16 @@ import moment from "moment";
 const Message = ({ doc }: { doc: any }): ReactNode => {
     const { user } = useAppSelector(session);
 
-    const message = doc.from == user.email ? "sender" : "reciver";
+    const typeOfMesssage = doc.from == user.email ? "sender" : "reciver";
     return (
         <div
             className={`${
-                message == "sender" && "justify-end"
+                typeOfMesssage == "sender" && "justify-end"
             } flex items-center py-1 w-full inter`}
         >
             <div
                 className={`${
-                    message == "sender" && "!bg-white !text-black"
+                    typeOfMesssage == "sender" && "!bg-white !text-black"
                 } min-w-20 max-w-56 bg-green-600 text-white px-3 py-1 rounded`}
             >
                 <p className="text-sm">{doc.message}</p>

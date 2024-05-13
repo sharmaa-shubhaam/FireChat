@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import DefaultProfilePic from "../assets/default_user_profile.jpg";
 import { useLocation } from "react-router-dom";
 import {
@@ -24,6 +24,7 @@ const Home = (): ReactNode => {
     const [lastSeen, setLastSeen] = useState("");
     const [profile, setProfile] = useState("");
     const [message, setMessage] = useState("");
+    const scrollRef = useRef<HTMLDivElement>(null);
     const [showMessage, setShowMessage] = useState<any>([]);
     const chat_id = useLocation().pathname.slice(7);
 
@@ -55,6 +56,11 @@ const Home = (): ReactNode => {
                 chat_id: chat_id,
             });
             setMessage("");
+            if (scrollRef?.current)
+                scrollRef?.current.scroll({
+                    behavior: "smooth",
+                    top: 600,
+                });
         } catch (error) {
             console.log(error);
         }
@@ -99,7 +105,7 @@ const Home = (): ReactNode => {
                 </div>
             </header>
 
-            <div className="flex-1 overflow-y-auto py-3 px-6">
+            <div className="flex-1 overflow-y-auto py-3 px-6" ref={scrollRef}>
                 {showMessage.map((data: any, i: any) => {
                     return <Message doc={data} key={i} />;
                 })}
