@@ -28,17 +28,16 @@ const Home = (): ReactNode => {
     const [showMessage, setShowMessage] = useState<any>([]);
     const chat_id = useLocation().pathname.slice(7);
 
-    // Message ref collection
-    const messageRef = query(
-        collection(doc(db, "chats", chat_id), "messages"),
-        where("chat_id", "==", chat_id),
-        orderBy("timestamp", "asc")
-    );
-    const [messageSnapshot] = useCollection(messageRef);
-
     // chat ref collection
     const chatRef = doc(db, "chats", chat_id);
     const [chatSnapshot] = useDocument(chatRef);
+
+    // Message ref collection
+    const messageRef = query(
+        collection(chatRef, "messages"),
+        where("chat_id", "==", chat_id),
+        orderBy("timestamp", "asc")
+    );
 
     // user ref collection
     const userRef = query(collection(db, "users"), where("email", "==", recipientEmail || ""));
@@ -49,7 +48,7 @@ const Home = (): ReactNode => {
 
         // adding a document in message collection inside the chat coolection...
         try {
-            await addDoc(collection(doc(db, "chats", chat_id), "messages"), {
+            await addDoc(collection(chatRef, "messages"), {
                 timestamp: serverTimestamp(),
                 message: message,
                 from: user.email,
@@ -80,7 +79,7 @@ const Home = (): ReactNode => {
             const messageSnap = doc.docs.map((doc) => doc.data());
             setShowMessage(messageSnap);
         });
-    }, [chatSnapshot, userSnapshot, recipientEmail, messageSnapshot]);
+    }, [chatSnapshot, userSnapshot, recipientEmail]);
 
     return (
         <div className="flex-1 flex flex-col">
