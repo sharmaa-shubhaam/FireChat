@@ -30,7 +30,7 @@ const SidebarChat = ({ users, chat_id }: { users: string; chat_id: string }): Re
             <img
                 src={profile || DefaultUserProfile}
                 alt="alt"
-                className="w-9 h-9 rounded-full object-cover border"
+                className="w-8 h-8 rounded-full object-cover border"
             />
             <p className="text-sm truncate flex-1">{users}</p>
         </div>

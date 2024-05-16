@@ -70,9 +70,9 @@ const Sidebar = (): ReactNode => {
                 </div>
                 <p className="text-sm w-[80%] truncate">{user?.email}</p>
             </div>
-            <div className="px-4 py-1.5">
+            <div className="px-4 pt-3 pb-2">
                 <button
-                    className="w-full bg-gray-100 uppercase py-2 text-sm rounded-sm active:bg-gray-200"
+                    className="w-full bg-blue-600 text-white uppercase py-2.5 text-sm rounded-full active:bg-blue-600/80"
                     onClick={startNewChat}
                 >
                     start a new chat
