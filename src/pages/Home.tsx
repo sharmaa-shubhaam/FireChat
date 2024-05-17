@@ -57,8 +57,8 @@ const Home = (): ReactNode => {
             setMessage("");
             if (scrollRef?.current)
                 scrollRef?.current.scroll({
-                    behavior: "smooth",
-                    top: 600,
+                    behavior: "instant",
+                    top: scrollRef.current.scrollHeight,
                 });
         } catch (error) {
             console.log(error);
@@ -66,6 +66,12 @@ const Home = (): ReactNode => {
     };
 
     useEffect(() => {
+        if (scrollRef?.current)
+            scrollRef?.current.scroll({
+                behavior: "instant",
+                top: scrollRef.current.scrollHeight,
+            });
+
         // get recipient email and last seen with chat_id....
         setRecipientEmail(chatSnapshot?.data()?.users.filter((doc: any) => doc !== user.email)[0]);
 
