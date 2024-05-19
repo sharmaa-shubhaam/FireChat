@@ -76,6 +76,8 @@ const NewChat = () => {
                 <h1 className="text-center pt-1 pb-4 uppercase font-medium text-lg">
                     create new chat
                 </h1>
+
+                <p className="px-3 text-sm">Enter Gmail of Your Friend and Chat.</p>
                 <div className="px-3 space-y-2">
                     <input
                         type="text"

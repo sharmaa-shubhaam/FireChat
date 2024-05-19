@@ -48,6 +48,10 @@ const Profile = () => {
                     <IoIosLogOut className="text-2xl" />
                     <span>Sign Out</span>
                 </button>
+                <div className="px-6 py-2 text-sm">
+                    Don't worry your account will be deleted automaticaly after 3 days, when in
+                    testing mode.
+                </div>
             </section>
         </div>
     );

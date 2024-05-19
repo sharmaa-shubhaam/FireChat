@@ -30,6 +30,10 @@ const Login = (): ReactNode => {
         <div className="flex items-center justify-center h-screen roboto">
             <div className="bg-white py-4 px-8 rounded-md space-y-3 shadow w-[80%] sm:w-[350px]">
                 <div className="flex items-center justify-center flex-col">
+                    <h1 className="pb-6 text-sm text-center">
+                        <p className="uppercase">Testing Mode</p>
+                        <p>If any error occur while login Refresh page and try again.</p>
+                    </h1>
                     <img
                         src={FireChat}
                         alt="firechat_login_logo"
