@@ -3,21 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-    @import url("https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap");
-    @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-}
-
-.inter {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-}
-
-.sedan-sc-regular {
-    font-family: "Sedan SC", serif;
-    font-style: normal;
+    @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 }
 
 :root {
@@ -35,4 +22,18 @@
     -moz-osx-font-smoothing: grayscale;
 
     --primary: #ff3b14;
+}
+
+// <uniquifier>: Use a unique and descriptive class name
+
+.nunito {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.roboto {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }

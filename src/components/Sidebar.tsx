@@ -1,89 +1,49 @@
 import { ReactNode } from "react";
 import SidebarChat from "./SidebarChat";
-import { auth, db } from "../firebase";
-import { signOut } from "firebase/auth";
+import { db } from "../firebase";
 import { session } from "../redux/reducer/_session";
-import { useAppSelector } from "../redux/hooks";
-import { addDoc, collection, doc, query, serverTimestamp, setDoc, where } from "firebase/firestore";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { collection, query, where } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { recipientEmail } from "../utils/recipientEmail";
+import { toggleState, toggle } from "../redux/reducer/_toggle";
 
 const Sidebar = (): ReactNode => {
     const { user } = useAppSelector(session);
+    const isSidebarOpen = useAppSelector(toggleState).sidebar;
+    const dispatch = useAppDispatch();
 
     // snapshot for chat collection....
-    const chatSnapRef = query(
-        collection(db, "chats"),
-        where("users", "array-contains", user.email)
-    );
+    const chatsCollectionRef = collection(db, "chats");
+    const chatSnapRef = query(chatsCollectionRef, where("users", "array-contains", user.email));
     const [chatsnapshot] = useCollection(chatSnapRef);
 
-    // take the recipient email from single array.
-    const recipientEmail = (doc: any) =>
-        doc.data().users.filter((doc: any) => doc !== user.email)[0];
-
-    // figure out is chat exits or not.
-    const chatAlreadyExits = (input: string) =>
-        !!chatsnapshot?.docs.find((doc) => input == recipientEmail(doc));
-
-    // start a new chat and save in chat collection.
-    const startNewChat = async () => {
-        const input = prompt("Enter gmail account of your Friend...");
-        if (
-            !input ||
-            !input?.includes("@gmail.com") ||
-            input == user.email ||
-            chatAlreadyExits(input)
-        ) {
-            console.log("Chat already exits with the user " + input);
-            return null;
-        }
-        try {
-            await addDoc(collection(db, "chats"), { users: [user.email, input] });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     return (
-        <div className="w-[300px] h-full bg-white">
-            <div className="py-2 px-4">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold sedan-sc-regular">
-                        <span>Fire</span>
-                        <span className="text-[var(--primary)]">Chat</span>
-                    </h1>
-                    <img
-                        src={user?.profilePic}
-                        alt="alt"
-                        className="w-8 h-8 rounded-full cursor-pointer object-cover border"
-                        onClick={async () => {
-                            await setDoc(
-                                doc(db, "users", user._id),
-                                {
-                                    lastSeen: serverTimestamp(),
-                                },
-                                { merge: true }
-                            );
-                            signOut(auth).then(() => (window.location.pathname = "/"));
-                        }}
-                    />
+        <section
+            className={`h-full w-full sm:w-[320px] absolute sm:relative sm:left-0 
+                            top-0 bg-white/15 transition-all ease-in-out ${
+                                isSidebarOpen ? "left-0" : "left-[-1000px]"
+                            }`}
+            onClick={() => dispatch(toggle(["sidebar", false]))}
+        >
+            <div className="w-[65%] sm:w-full h-full bg-white">
+                <div className="px-5 pl-5 pt-4 flex items-center justify-between sm:hidden">
+                    <h1 className="text-2xl font-bold capitalize">firechat</h1>
                 </div>
-                <p className="text-sm w-[80%] truncate">{user?.email}</p>
+                <div className="px-5 pt-2 pb-2 border-b">
+                    <h1 className="text-lg font-medium capitalize">Chats</h1>
+                </div>
+                <div className="pb-2">
+                    {chatsnapshot?.docs.map((doc, i) => (
+                        <SidebarChat
+                            users={recipientEmail(doc, user.email)}
+                            chat_id={doc.id}
+                            key={i}
+                        />
+                    ))}
+                </div>
             </div>
-            <div className="px-4 pt-3 pb-2">
-                <button
-                    className="w-full bg-blue-600 text-white uppercase py-2.5 text-sm rounded-full active:bg-blue-600/80"
-                    onClick={startNewChat}
-                >
-                    start a new chat
-                </button>
-            </div>
-            <div className="py-2">
-                {chatsnapshot?.docs.map((doc, i) => (
-                    <SidebarChat users={recipientEmail(doc)} chat_id={doc.id} key={i} />
-                ))}
-            </div>
-        </div>
+        </section>
     );
 };
 

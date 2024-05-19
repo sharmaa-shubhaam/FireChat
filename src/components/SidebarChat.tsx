@@ -20,7 +20,7 @@ const SidebarChat = ({ users, chat_id }: { users: string; chat_id: string }): Re
 
     return (
         <div
-            className={`hover:bg-gray-100 flex items-center space-x-3 px-4 py-1.5 cursor-pointer ${
+            className={`hover:bg-gray-100 flex items-center space-x-3 px-4 py-1.5 cursor-pointer border-b ${
                 path && "bg-gray-100"
             }`}
             onClick={() => {

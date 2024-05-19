@@ -18,7 +18,7 @@ import { session } from "../redux/reducer/_session";
 import TimeAgo from "timeago-react";
 import Message from "../components/Message";
 
-const Home = (): ReactNode => {
+const Chat = (): ReactNode => {
     const { user } = useAppSelector(session);
     const [recipientEmail, setRecipientEmail] = useState("");
     const [lastSeen, setLastSeen] = useState("");
@@ -88,13 +88,13 @@ const Home = (): ReactNode => {
     }, [chatSnapshot, userSnapshot, recipientEmail]);
 
     return (
-        <div className="flex-1 flex flex-col">
-            <header className="bg-white h-14 px-5 flex items-center justify-between">
+        <div className="flex-1 flex flex-col pb-14">
+            <header className="bg-white h-[52px] px-5 flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                     <img
                         src={profile || DefaultProfilePic}
                         alt="alt"
-                        className="w-9 h-9 rounded-full border"
+                        className="w-8 h-8 rounded-full border"
                     />
                     <div className="">
                         <h1 className="text-sm font-semibold truncate">{recipientEmail}</h1>
@@ -125,9 +125,12 @@ const Home = (): ReactNode => {
                     onChange={(e) => {
                         setMessage(e.target.value);
                     }}
+                    onKeyUp={(e) => {
+                        if (e.key == "Enter") sendMessage();
+                    }}
                 />
                 <button
-                    className="text-sm py-2.5 px-6 bg-[var(--primary)] text-white rounded active:scale-[0.99]"
+                    className="text-sm py-2.5 px-6 bg-blue-600 text-white rounded active:scale-[0.99]"
                     onClick={sendMessage}
                 >
                     send
@@ -137,4 +140,4 @@ const Home = (): ReactNode => {
     );
 };
 
-export default Home;
+export default Chat;
