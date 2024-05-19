@@ -41,7 +41,7 @@ const Header = () => {
                         alt="user-profile"
                         className="w-8 sm:w-7 h-8 sm:h-7 rounded-full object-cover"
                     />
-                    <span className="text-sm truncate max-w-44 hidden sm:flex">{user.email}</span>
+                    <span className="text-sm !truncate max-w-48 hidden sm:block">{user.email}</span>
                 </button>
             </div>
         </header>
