@@ -24,8 +24,6 @@
     --primary: #ff3b14;
 }
 
-// <uniquifier>: Use a unique and descriptive class name
-
 .nunito {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
