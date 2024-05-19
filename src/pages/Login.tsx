@@ -27,13 +27,13 @@ const Login = (): ReactNode => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="bg-white py-4 px-8 rounded-md space-y-3 shadow">
-                <div>
+        <div className="flex items-center justify-center h-screen roboto">
+            <div className="bg-white py-4 px-8 rounded-md space-y-3 shadow w-[80%] sm:w-[350px]">
+                <div className="flex items-center justify-center flex-col">
                     <img
                         src={FireChat}
                         alt="firechat_login_logo"
-                        className="aspect-square w-[280px]"
+                        className="aspect-square w-auto sm:w-[200px]"
                     />
                     <h1 className="text-center text-3xl font-semibold sedan-sc-regular">
                         <span>Fire</span>
@@ -47,6 +47,11 @@ const Login = (): ReactNode => {
                     <FcGoogle className="text-2xl" />
                     <span>sign in with Google</span>
                 </button>
+                <div className="text-[10px] text-center text-gray-400 uppercase pt-1">
+                    Copyright all rights reserved.
+                    <br />
+                    shubham sharma
+                </div>
             </div>
         </div>
     );
