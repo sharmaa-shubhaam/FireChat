@@ -26,7 +26,7 @@ const Sidebar = (): ReactNode => {
                             }`}
             onClick={() => dispatch(toggle(["sidebar", false]))}
         >
-            <div className="w-[65%] sm:w-full h-full bg-white">
+            <div className="w-[80%] sm:w-full h-full bg-white">
                 <div className="px-5 pl-5 pt-4 flex items-center justify-between sm:hidden">
                     <h1 className="text-2xl font-bold capitalize">firechat</h1>
                 </div>
