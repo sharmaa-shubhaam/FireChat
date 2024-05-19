@@ -53,6 +53,7 @@ const NewChat = () => {
             await addDoc(chatsCollectionRef, {
                 users: [user.email, input.value],
             });
+            dispatch(toggle(["newChat", false]));
         } catch (error) {
             setInput({ error: [true, "Something went wrong."] });
         } finally {

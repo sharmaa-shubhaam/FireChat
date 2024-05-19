@@ -116,7 +116,7 @@ const Chat = (): ReactNode => {
                 })}
             </div>
 
-            <div className="bg-white h-14 flex items-center px-10 space-x-2">
+            <div className="bg-white h-14 flex items-center px-3 sm:px-10 space-x-2">
                 <input
                     type="text"
                     value={message}
