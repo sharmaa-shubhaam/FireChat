@@ -9,6 +9,7 @@ import {
     orderBy,
     query,
     serverTimestamp,
+    setDoc,
     where,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -54,6 +55,13 @@ const Chat = (): ReactNode => {
                 from: user.email,
                 chat_id: chat_id,
             });
+            await setDoc(
+                doc(db, "users", user._id),
+                {
+                    lastSeen: serverTimestamp(),
+                },
+                { merge: true }
+            );
             setMessage("");
             if (scrollRef?.current)
                 scrollRef?.current.scroll({
@@ -66,12 +74,6 @@ const Chat = (): ReactNode => {
     };
 
     useEffect(() => {
-        if (scrollRef?.current)
-            scrollRef?.current.scroll({
-                behavior: "instant",
-                top: scrollRef.current.scrollHeight,
-            });
-
         // get recipient email and last seen with chat_id....
         setRecipientEmail(chatSnapshot?.data()?.users.filter((doc: any) => doc !== user.email)[0]);
 
@@ -86,6 +88,14 @@ const Chat = (): ReactNode => {
             setShowMessage(messageSnap);
         });
     }, [chatSnapshot, userSnapshot, recipientEmail]);
+
+    useEffect(() => {
+        if (scrollRef?.current)
+            scrollRef?.current.scroll({
+                behavior: "instant",
+                top: scrollRef.current.scrollHeight,
+            });
+    }, [scrollRef.current?.scrollHeight]);
 
     return (
         <div className="flex-1 flex flex-col">
