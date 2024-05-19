@@ -88,7 +88,7 @@ const Chat = (): ReactNode => {
     }, [chatSnapshot, userSnapshot, recipientEmail]);
 
     return (
-        <div className="flex-1 flex flex-col pb-14">
+        <div className="flex-1 flex flex-col">
             <header className="bg-white h-[52px] px-5 flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                     <img
@@ -120,7 +120,7 @@ const Chat = (): ReactNode => {
                 <input
                     type="text"
                     value={message}
-                    className="w-full text-sm border px-4 py-2.5 rounded"
+                    className="w-full text-sm border px-4 py-2.5 rounded bg-white outline-none"
                     placeholder="Send a Message..."
                     onChange={(e) => {
                         setMessage(e.target.value);

@@ -50,7 +50,9 @@ const NewChat = () => {
         try {
             setIsLoading(true);
             setInput({ ...input, error: [false, ""] });
-            await addDoc(chatsCollectionRef, { users: [user.email, input.value] });
+            await addDoc(chatsCollectionRef, {
+                users: [user.email, input.value],
+            });
         } catch (error) {
             setInput({ error: [true, "Something went wrong."] });
         } finally {
@@ -77,7 +79,7 @@ const NewChat = () => {
                     <input
                         type="text"
                         value={input.value}
-                        onChange={(e) => setInput({ value: e.target.value })}
+                        onChange={(e) => setInput({ value: e.target.value.toLowerCase() })}
                         placeholder="Example@gmail.com"
                         className={`w-full py-2.5 px-4 outline-none bg-white text-sm rounded ${
                             input.error?.[0] ? "border border-red-400" : "border"

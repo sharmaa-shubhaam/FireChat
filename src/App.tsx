@@ -44,7 +44,7 @@ const App = (): ReactNode => {
     return (
         <div className="roboto h-screen overflow-hidden">
             <Header />
-            <div className="flex h-full bg-zinc-100">
+            <div className="flex h-[calc(100vh-56px)] bg-zinc-100">
                 <Sidebar />
                 <Routes>
                     <Route
